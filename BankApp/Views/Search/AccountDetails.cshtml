@@ -1,0 +1,58 @@
+﻿@model BankApp.ViewModels.AccountDetailsViewModel
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.unobtrusive-ajax/3.2.5/jquery.unobtrusive-ajax.min.js"></script>
+
+<h1>Transaktionshistorik</h1>
+
+<table>
+    <tr>
+        <th>Kontonummer:</th>
+        <td>@Model.Account.AccountId</td>
+    </tr>
+    <tr>
+        <th>Saldo:</th>
+        <td>@Model.Account.Balance</td>
+    </tr>
+</table>
+ 
+<hr />
+
+<div id="transactions">
+
+    <table class="table-striped">
+        <thead>
+        <th>Datum</th>
+        <th>Typ</th>
+        <th>Operation</th>
+        <th>Bank</th>
+        <th>Konto</th>
+        <th>Summa</th>
+        <th>Saldo</th>
+        </thead>
+        <tbody>
+            @foreach (var transaction in Model.Transactions)
+            {
+                <tr>
+                    <td>@transaction.Date.ToShortDateString()</td>
+                    <td>@transaction.Type</td>
+                    <td>@transaction.Operation</td>
+                    <td>@transaction.Symbol</td>
+                    <td>@transaction.Bank</td>
+                    <td>@transaction.Account</td>
+                    <td>@transaction.Amount</td>
+                    <td>@transaction.Balance</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-controller="Search"
+       asp-action="Next"
+       asp-route-id="@Model.CustomerId"
+       asp-route-page="@(Model.PagingViewModel.CurrentPage+1)"
+       data-ajax="true"
+       data-ajax-method="get"
+       data-ajax-mode="replace"
+       data-ajax-update="#transactions" class="btn btn-primary mb-2">Nästa 20</a>
+</div>

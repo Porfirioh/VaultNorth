@@ -1,0 +1,67 @@
+﻿@model BankApp.ViewModels.TransactionViewModel
+
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jquery.validation.unobtrusive/3.2.6/jquery.validate.unobtrusive.min.js"></script>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <h1 class="text text-black-50">Resultat:</h1>
+
+            <table>
+                <tr>
+                    <th>Typ</th>
+                    @if (Model.Operation == "Withdrawal in Cash")
+                    {
+                        <td>Uttag</td>
+                    }
+                    @if (Model.Operation == "Transaction")
+                    {
+                        <td>Överföring</td>
+                    }
+                    @if (Model.Operation == "Deposit")
+                    {
+                        <td>Insättning</td>
+                    }
+                </tr>
+                <tr>
+                    <th>
+                        Status
+                    </th>
+                    <hr />
+
+                    @if (Model.ConfirmationMessage != null)
+                    {
+                        <td class="text text-success">@Model.ConfirmationMessage</td>
+                    }
+                    @if (Model.ErrorMessage != null)
+                    {
+                        <td class="text text-danger">@Model.ErrorMessage</td>
+                    }
+                </tr>
+            </table>
+
+            @if (Model.Operation == "Withdrawal in Cash")
+            {
+                <a asp-controller="Transaction" asp-action="WithdrawalInCash" class="btn btn-primary mb-2">Nytt uttag</a>
+            }
+
+            @if (Model.Operation == "Transaction")
+            {
+                <a asp-controller="Transaction" asp-action="Transaction" class="btn btn-primary mb-2">Ny överföring</a>
+            }
+            @if (Model.Operation == "Deposit")
+            {
+                <a asp-controller="Transaction" asp-action="Deposit" class="btn btn-primary mb-2">Ny insättning</a>
+            }
+        </div>
+    </div>
+</div>
+
+
+

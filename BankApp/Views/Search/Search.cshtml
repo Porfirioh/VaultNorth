@@ -1,0 +1,79 @@
+﻿@model BankApp.ViewModels.SearchViewModel
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <form asp-controller="Search" asp-action="Search" method="get">
+                <label>Namn</label>
+                <input asp-for="@Model.Name" />
+                <label>Stad</label>
+                <input asp-for="@Model.City" />
+                <button class="btn btn-success" type="submit">Sök</button>
+            </form>
+
+            @if (Model.ShowSearchResults)
+            {
+                <table class="table-striped">
+                    <thead>
+                        <tr>
+                            <th>Kundnummer</th>
+                            <th>Personnummer</th>
+                            <th>Namn</th>
+                            <th>Adress</th>
+                            <th>Postnummer</th>
+                            <th>Ort</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var searchResult in Model.SearchResults)
+                        {
+                            <tr>
+                                <td>@searchResult.CustomerId</td>
+                                <td>@searchResult.Birthday.ToShortDateString()</td>
+                                <td>@searchResult.Givenname @searchResult.Surname</td>
+                                <td>@searchResult.Streetaddress</td>
+                                <td>@searchResult.Zipcode</td>
+                                <td>@searchResult.City</td>
+                                <td><a asp-controller="Search" asp-action="CustomerDetails" asp-route-id="@searchResult.CustomerId">Detaljer</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            @if (Model.PagingViewModel.ShowPreviousButton)
+            {
+                <a asp-controller="Search" asp-action="Search" asp-route-page="@(Model.PagingViewModel.CurrentPage-1)" asp-route-name="@Model.Name" asp-route-city="@Model.City">Prev</a>
+            }
+            @if (Model.PagingViewModel.ShowNextButton)
+            {
+                <a asp-controller="Search" asp-action="Search" asp-route-page="@(Model.PagingViewModel.CurrentPage+1)" asp-route-name="@Model.Name" asp-route-city="@Model.City">Next</a>
+            }
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"></h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <form asp-controller="Search" asp-action="CustomerDetails" method="get">
+                <label>Kundnummer</label>
+                <input type="text" name="id" />
+                <button class="btn btn-success" type="submit">Hämta kundbild</button>
+                @if (Model.Error != null)
+                {
+                    <span class="text text-danger">@Model.Error</span>
+                }
+            </form>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+﻿@model BankApp.ViewModels.TransactionViewModel
+
+<div class="card shadow mb-4">
+
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Ny överföring</h6>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+
+
+            <form method="post">
+
+                <input type="hidden" asp-for="@Model.Operation" value="Transaction" />
+
+                <table>
+                    <tr>
+                        <td>
+                            <label>Avsändare</label>
+                        </td>
+                        <td>
+                            <input type="text" asp-for="AccountId" />
+
+                        </td>
+                        <td>
+                            <span class="text text-danger" asp-validation-for="AccountId"></span>
+                            <span class="text text-danger">@ViewBag.AccountId</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Summa</label>
+
+                        </td>
+                        <td>
+                            <input type="text" asp-for="Amount" />
+
+                        </td>
+                        <td>
+                            <span class="text text-danger" asp-validation-for="Amount"></span>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+
+                            <label>Datum</label>
+                        </td>
+                        <td>
+
+                            <input asp-for="Date" type="date" />
+
+
+                        </td>
+                        <td>
+
+                            <span class="text text-danger" asp-validation-for="Date"></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+
+                            <label>Mottagare</label>
+                        </td>
+                        <td>
+
+                            <input type="text" asp-for="Account" />
+
+                        </td>
+                        <td>
+                            <span class="text text-danger">@ViewBag.Account</span>
+                        </td>
+                    </tr>
+
+
+                </table>
+
+                <hr />
+
+                <button type="submit" class="btn btn-primary mb-2">Bekräfta</button>
+                @if (Model.TransactionErrorMessage != null)
+                {
+                    <span class="text text-danger">@Model.TransactionErrorMessage</span>
+                }
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Html.Partial("_ValidationScriptsPartial")
+}

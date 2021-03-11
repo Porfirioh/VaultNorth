@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "";
+}
+
+@model BankApp.ViewModels.AccountDetailsViewModel
+
+<table class="table-striped">
+    <thead>
+    <tbody>
+        @foreach (var transaction in Model.Transactions)
+        {
+            <tr>
+                <td>@transaction.Date.ToShortDateString()</td>
+                <td>@transaction.Type</td>
+                <td>@transaction.Operation</td>
+                <td>@transaction.Symbol</td>
+                <td>@transaction.Bank</td>
+                <td>@transaction.Account</td>
+                <td>@transaction.Amount</td>
+                <td>@transaction.Balance</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-controller="Search"
+   asp-action="Next"
+   asp-route-id="@Model.CustomerId"
+   asp-route-page="@(Model.PagingViewModel.CurrentPage+1)"
+   data-ajax="true"
+   data-ajax-method="get"
+   data-ajax-mode="replace"
+   data-ajax-update="#transactions" class="btn btn-primary mb-2">Nästa 20</a>

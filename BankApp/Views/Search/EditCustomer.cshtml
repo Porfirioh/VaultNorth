@@ -1,0 +1,76 @@
+﻿@model BankApp.ViewModels.EditCustomerViewModel
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Ändra kontaktuppgifter</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <form asp-controller="Search" asp-action="UpdateCustomer">
+
+                <input type="hidden" asp-for="@Model.CustomerId" value="@Model.CurrentCustomer.CustomerId" />
+                <input type="hidden" asp-for="@Model.Gender" value="@Model.CurrentCustomer.Gender" />
+                <input type="hidden" asp-for="@Model.Givenname" value="@Model.CurrentCustomer.Givenname" />
+                <input type="hidden" asp-for="@Model.Surname" value="@Model.CurrentCustomer.Surname" />
+                <input type="hidden" asp-for="@Model.Birthday" value="@Model.CurrentCustomer.Birthday" />
+                
+                <table>
+                    <tr>
+                        <td><label>Kön</label></td>
+                        <td><input value="@Model.CurrentCustomer.Gender" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Förnamn</label></td>
+                        <td><input value="@Model.CurrentCustomer.Givenname" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Efternamn</label></td>
+                        <td><input value="@Model.CurrentCustomer.Surname" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Adress</label></td>
+                        <td><input asp-for="@Model.Streetaddress" value="@Model.CurrentCustomer.Streetaddress" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Stad</label></td>
+                        <td><input asp-for="@Model.City" value="@Model.CurrentCustomer.City" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Postnummer</label></td>
+                        <td><input asp-for="@Model.Zipcode" value="@Model.CurrentCustomer.Zipcode" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Land</label></td>
+                        <td><input asp-for="@Model.Country" value="@Model.CurrentCustomer.Country" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Landskod</label></td>
+                        <td><input asp-for="@Model.CountryCode" value="@Model.CurrentCustomer.CountryCode" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Personnummer</label></td>
+                        <td><input type="text" value="@Model.CurrentCustomer.Birthday.ToShortDateString()" disabled="disabled" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Nationellt Id</label></td>
+                        <td><input asp-for="@Model.NationalId" value="@Model.CurrentCustomer.NationalId" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Riktnummer</label></td>
+                        <td><input asp-for="@Model.Telephonecountrycode" value="@Model.CurrentCustomer.Telephonecountrycode" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>Telefonnummer</label></td>
+                        <td><input asp-for="@Model.Telephonenumber" value="@Model.CurrentCustomer.Telephonenumber" /></td>
+                    </tr>
+                    <tr>
+                        <td><label>E-postadress</label></td>
+                        <td><input asp-for="@Model.Emailaddress" value="@Model.CurrentCustomer.Emailaddress" /></td>
+                    </tr>
+                </table>
+                <hr />
+                <input class="btn btn-primary mb-2" type="submit" value="Spara">
+            </form>
+        </div>
+    </div>
+</div>

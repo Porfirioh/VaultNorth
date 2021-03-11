@@ -1,0 +1,133 @@
+﻿@model BankApp.ViewModels.CustomerDetailsViewModel
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Kunduppgifter</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th>Kön</th>
+                    <td>@Model.CurrentCustomer.Gender</td>
+                </tr>
+                <tr>
+                    <th>Förnamn</th>
+                    <td>@Model.CurrentCustomer.Givenname</td>
+                </tr>
+                <tr>
+                    <th>Efternamn</th>
+                    <td>@Model.CurrentCustomer.Surname"</td>
+                </tr>
+                <tr>
+                    <th>Adress</th>
+                    <td>@Model.CurrentCustomer.Streetaddress</td>
+                </tr>
+                <tr>
+                    <th>Stad</th>
+                    <td>@Model.CurrentCustomer.City</td>
+                </tr>
+                <tr>
+                    <th>Postnummer</th>
+                    <td>@Model.CurrentCustomer.Zipcode</td>
+                </tr>
+                <tr>
+                    <th>Land</th>
+                    <td>@Model.CurrentCustomer.Country</td>
+                </tr>
+                <tr>
+                    <th>Landskod</th>
+                    <td>@Model.CurrentCustomer.CountryCode</td>
+                </tr>
+                <tr>
+                    <th>Personnummer</th>
+                    <td>@Model.CurrentCustomer.Birthday.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <th>Nationellt Id</th>
+                    <td>@Model.CurrentCustomer.NationalId</td>
+                </tr>
+                <tr>
+                    <th>Riktnummer</th>
+                    <td>@Model.CurrentCustomer.Telephonecountrycode</td>
+                </tr>
+                <tr>
+                    <th>Telefonnummer</th>
+                    <td>@Model.CurrentCustomer.Telephonenumber</td>
+                </tr>
+                <tr>
+                    <th><label>E-postadress</label></th>
+                    <td>@Model.CurrentCustomer.Emailaddress</td>
+                </tr>
+            </table>
+
+            <a asp-controller="Search" asp-action="EditCustomer" asp-route-id="@Model.CustomerId" class="btn btn-secondary">Ändra kunduppgifter</a>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Konton och disponenter</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <h6>Konton</h6>
+            <table class="table-striped">
+                <thead>
+                    <tr>
+                        <th>Kontonummer</th>
+                        <th>Frekvens</th>
+                        <th>Skapades</th>
+                        <th>Saldo</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        <tr>
+                            <td><a asp-controller="Search" asp-action="AccountDetails" asp-route-id="@account.AccountId">@account.AccountId</a></td>
+                            <td>@account.Frequency</td>
+                            <td>@account.Created</td>
+                            <td>@account.Balance</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <hr />
+            <h6>
+                Disponenter
+            </h6>
+            <table class="table-striped">
+                <thead>
+                    <tr>
+                        <th>Kontonummer</th>
+                        <th>Disponent</th>
+                        <th>Roll</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var account in Model.Accounts)
+                    {
+                        @foreach (var disponent in account.Disponents)
+                        {
+
+                            <tr>
+                                <td>@account.AccountId</td>
+                                <td>@disponent.Givenname @disponent.Surname</td>
+                                <td>@disponent.Type</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

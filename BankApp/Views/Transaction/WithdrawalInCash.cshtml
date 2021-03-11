@@ -1,0 +1,41 @@
+﻿@model BankApp.ViewModels.TransactionViewModel
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Nytt uttag</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+
+            <form asp-controller="Transaction" asp-action="WithDrawalInCash" method="post">
+
+                <input type="hidden" asp-for="@Model.Operation" value="Withdrawal in Cash" />
+
+                <table>
+                    <tr>
+                        <td><label>Konto</label></td>
+                        <td><input type="text" asp-for="@Model.AccountId" /></td>
+                        <td><span class="text text-danger" asp-validation-for="AccountId"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>Datum</label></td>
+                        <td><input asp-for="@Model.Date" type="date" /></td>
+                        <td><span class="text text-danger" asp-validation-for="Date"></span></td>
+                    </tr>
+                    <tr>
+                        <td><label>Summa</label></td>
+                        <td><input asp-for="@Model.Amount" value="" /></td>
+                        <td><span class="text text-danger" asp-validation-for="Amount"></span></td>
+                    </tr>
+                </table>
+                <hr />
+                <button type="submit" class="btn btn-primary mb-2">Bekräfta</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    @Html.Partial("_ValidationScriptsPartial")
+}
